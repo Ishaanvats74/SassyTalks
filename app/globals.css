@@ -130,3 +130,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.cl-providerIcon__apple{
+  filter: invert(1);
+}
+

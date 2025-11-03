@@ -25,26 +25,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{
-      layout:{
-        logoImageUrl:'/icons/yoom-logo.svg',
-        socialButtonsPlacement:'iconButton'
-      },
-      variables:{
-        colorText:'#fff',
-        colorPrimary:'#0E76F9',
-        colorBackground:'#1c1f3e',
-        colorInputBackground:'#252a41',
-        colorInputText:'#fff'
-      }
-    }}>
-      <html lang="en">
+    <html lang="en">
+      <ClerkProvider
+  appearance={{
+    // cssLayerName: "clerk",
+    layout: {
+      logoImageUrl: "/icons/yoom-logo.svg",
+      socialButtonsVariant: "iconButton",
+    },
+    variables: {
+      colorText: "#fff",
+      colorPrimary: "#0E76F9",
+      colorBackground: "#1c1f3e",
+      colorInputBackground: "#252a41",
+      colorInputText: "#fff",
+    },
+    elements: {
+      userButtonPopoverCard: "bg-[#1c1f3e] text-white border border-[#252a41]",
+      userButtonPopoverFooter: "text-gray-400",
+      userButtonPopoverActionButton: "text-white hover:text-[#0E76F9]",
+      userButtonPopoverActionButtonIcon: "text-white",
+      userButtonPopoverActionButtonText: "text-white",
+      formButtonPrimary:"text-white",
+      userButtonPopoverFooterLink: "text-white hover:text-[#0E76F9]",
+      userButtonPopoverFooterText: "text-gray-300",
+    },
+  }}
+>
         <body
           className={`${geistSans.variable} ${inter.className} bg-[#161925] ${geistMono.variable} antialiased`}
         >
           {children}
         </body>
-      </html>
-    </ClerkProvider>
+      </ClerkProvider>
+    </html>
   );
 }
