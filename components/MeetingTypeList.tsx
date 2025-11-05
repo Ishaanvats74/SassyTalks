@@ -3,11 +3,46 @@ import React, { useState } from "react";
 import HomeCard from "./HomeCard";
 import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
+import { useUser } from "@clerk/nextjs";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 
 const MeetingTypeList = () => {
   const router = useRouter();
-  const createMeeting = ()=>{
-    
+  const { user } = useUser();
+  const client = useStreamVideoClient();
+  const [values, setvalues] = useState({
+    dateTime: new Date(),
+    description:'',
+    link:''
+  })
+  const [callDetails, setcallDetails] = useState<Call>()
+
+  const createMeeting = async () => {
+    if (!client || !user) return;
+
+    try {
+      const id = crypto.randomUUID();
+      const call = client.call("default", id);
+      if (!call) throw new Error("Failed to create call");
+
+      const startAt = values.dateTime.toISOString() || new Date(Date.now()).toISOString();
+      const description = values.description || 'Instant Meeting';
+      await call.getOrCreate({
+        data:{
+            starts_at:startAt,
+            custom:{
+                description
+            }
+        }
+      })
+      setcallDetails(call);
+      if(!values.description){
+        router.push(`/meeting/${call.id}`);
+      };
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   const [meetingState, setMeetingState] = useState<
     "iseScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
@@ -42,7 +77,14 @@ const MeetingTypeList = () => {
         handleClick={() => setMeetingState("isJoiningMeeting")}
         className="bg-yellow-500"
       />
-      <MeetingModal isOpen={meetingState === "isInstantMeeting"} onClose={()=> setMeetingState(undefined)} title="Start an Instant Meeting" className="text-center" buttonText="Start Meeting" handleClick={createMeeting}/>
+      <MeetingModal
+        isOpen={meetingState === "isInstantMeeting"}
+        onClose={() => setMeetingState(undefined)}
+        title="Start an Instant Meeting"
+        className="text-center"
+        buttonText="Start Meeting"
+        handleClick={createMeeting}
+      />
     </section>
   );
 };

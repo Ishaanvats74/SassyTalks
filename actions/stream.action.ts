@@ -7,7 +7,7 @@ const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const apiSecret = process.env.STREAM_SECRET_KEY;
 
 export const tokenProvider = async () => {
-  const user = await currentUser();
+  const user =  currentUser();
 
   if (!user) throw new Error("user is not logged in");
   if (!apiKey) throw new Error("No API key");
@@ -15,8 +15,9 @@ export const tokenProvider = async () => {
 
   const streamclient = new StreamClient(apiKey, apiSecret);
 
-  const exp = 60 * 60;
+  const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
 
-  const issued = 
-
+  const issued = Math.floor(Date.now() / 1000) - 60;
+  const token = streamclient.createToken(user.id, exp, issued);
+  return token;
 };

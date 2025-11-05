@@ -7,6 +7,7 @@ import {
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 interface MeetingModalProps {
   isOpen: boolean;
@@ -33,6 +34,7 @@ const MeetingModal = ({
 }: MeetingModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogTitle></DialogTitle>
       <DialogContent className="flex w-full max-w-[520px] flex-col gap-6 border-none bg-black px-6 py-9 text-white">
         <div className="flex flex-col gap-6">
             {image && (
