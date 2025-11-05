@@ -26,7 +26,6 @@ const MeetingModal = ({
   children,
   onClose,
   title,
-  className,
   buttonText,
   buttonIcon,
   image,
