@@ -1,8 +1,8 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import MobileNav from './MobileNav';
-import { SignedIn, UserButton } from '@clerk/nextjs';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import MobileNav from "./MobileNav";
+import { SignedIn, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -15,7 +15,9 @@ const Navbar = () => {
           height={32}
           className="max-sm:size-10"
         />
-        <p className="text-[26px] font-extrabold text-white max-sm:hidden">SassyTalks</p>
+        <p className="text-[26px] font-extrabold text-white max-sm:hidden">
+          SassyTalks
+        </p>
       </Link>
 
       <div className="flex items-center gap-5 text-white">
@@ -23,7 +25,7 @@ const Navbar = () => {
           <UserButton
             appearance={{
               elements: {
-                formButtonPrimary: 'text-white',
+                formButtonPrimary: "text-white",
               },
             }}
           />

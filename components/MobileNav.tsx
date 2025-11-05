@@ -27,7 +27,10 @@ const MobileNav = () => {
             className="cursor-pointer sm:hidden"
           />
         </SheetTrigger>
-        <SheetContent side="left" className="border-none bg-gray-900 max-w-[300px]">
+        <SheetContent
+          side="left"
+          className="border-none bg-gray-900 max-w-[300px]"
+        >
           <SheetHeader>
             <Link href={"/"} className="flex items-center gap-1">
               <Image

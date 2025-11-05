@@ -2,9 +2,13 @@
 import React, { useState } from "react";
 import HomeCard from "./HomeCard";
 import { useRouter } from "next/navigation";
+import MeetingModal from "./MeetingModal";
 
 const MeetingTypeList = () => {
-    const router = useRouter();
+  const router = useRouter();
+  const createMeeting = ()=>{
+    
+  };
   const [meetingState, setMeetingState] = useState<
     "iseScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
   >();
@@ -28,7 +32,7 @@ const MeetingTypeList = () => {
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Check out your recordings"
-        handleClick={() => router.push('/recordings')}
+        handleClick={() => router.push("/recordings")}
         className="bg-blue-600"
       />
       <HomeCard
@@ -38,6 +42,7 @@ const MeetingTypeList = () => {
         handleClick={() => setMeetingState("isJoiningMeeting")}
         className="bg-yellow-500"
       />
+      <MeetingModal isOpen={meetingState === "isInstantMeeting"} onClose={()=> setMeetingState(undefined)} title="Start an Instant Meeting" className="text-center" buttonText="Start Meeting" handleClick={createMeeting}/>
     </section>
   );
 };
