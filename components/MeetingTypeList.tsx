@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const MeetingTypeList = () => {
   const router = useRouter();
@@ -12,37 +14,45 @@ const MeetingTypeList = () => {
   const client = useStreamVideoClient();
   const [values, setvalues] = useState({
     dateTime: new Date(),
-    description:'',
-    link:''
-  })
-  const [callDetails, setcallDetails] = useState<Call>()
+    description: "",
+    link: "",
+  });
+  const [callDetails, setcallDetails] = useState<Call>();
 
   const createMeeting = async () => {
     if (!client || !user) return;
 
     try {
+      if (!values.dateTime) {
+        toast.error("Please select a date");
+        return;
+      }
+
       const id = crypto.randomUUID();
       const call = client.call("default", id);
       if (!call) throw new Error("Failed to create call");
 
-      const startAt = values.dateTime.toISOString() || new Date(Date.now()).toISOString();
-      const description = values.description || 'Instant Meeting';
+      const startAt =
+        values.dateTime.toISOString() || new Date(Date.now()).toISOString();
+      const description = values.description || "Instant Meeting";
       await call.getOrCreate({
-        data:{
-            starts_at:startAt,
-            custom:{
-                description
-            }
-        }
-      })
+        data: {
+          starts_at: startAt,
+          custom: {
+            description,
+          },
+        },
+      });
       setcallDetails(call);
-      if(!values.description){
+      if (!values.description) {
         router.push(`/meeting/${call.id}`);
-      };
+      }
+
+      toast.success("Meeting Created");
     } catch (error) {
       console.log(error);
+      toast.error("Failed to create meeting ");
     }
-
   };
   const [meetingState, setMeetingState] = useState<
     "iseScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
