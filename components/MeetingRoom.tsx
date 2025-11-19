@@ -1,10 +1,12 @@
 import { cn } from "@/lib/utils";
 import {
   CallControls,
+  CallingState,
   CallParticipantsList,
   CallStatsButton,
   PaginatedGridLayout,
   SpeakerLayout,
+  useCallStateHooks,
 } from "@stream-io/video-react-sdk";
 import { useState } from "react";
 import {
@@ -17,6 +19,7 @@ import {
 import { LayoutList, User } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
+import Loader from "./Loader";
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
@@ -31,10 +34,15 @@ const CallLayout = ({ layout }: { layout: CallLayoutType }) => {
   }
 };
 const MeetingRoom = () => {
-  const SearchParams = useSearchParams()
-  const isPersonalRoom = !!SearchParams.get("personalRoom");
+  const SearchParams = useSearchParams();
+  const isPersonalRoom = !!SearchParams.get("personal");
   const [layout, setlayout] = useState<CallLayoutType>("speaker-left");
   const [ShowParticipants, setShowParticipants] = useState<boolean>(false);
+
+  const {useCallCallingState} = useCallStateHooks();
+  const callingState = useCallCallingState();
+
+  if(callingState !== CallingState.JOINED) return  <Loader />
 
   return (
     <section className="text-white relative h-screen w-full overflow-hidden pt-4">
@@ -50,7 +58,7 @@ const MeetingRoom = () => {
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
       </div>
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
         <CallControls />
         <DropdownMenu>
           <div className="flex items-center">
