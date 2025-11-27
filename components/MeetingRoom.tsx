@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import {
   CallControls,
@@ -45,20 +46,25 @@ const MeetingRoom = () => {
   if (callingState !== CallingState.JOINED) return <Loader />;
 
   return (
-    <section className="text-white relative h-screen w-full overflow-hidden pt-4">
-      <div className="relative flex size-full items-center justify-center">
+    <section className="text-white relative h-screen w-full overflow-hidden ">
+      <div
+        className={cn(
+          "relative flex w-full h-full items-start transition-all",
+          ShowParticipants ? "justify-between" : "justify-center"
+        )}
+      >
         <div className="flex size-full max-w-[1000px] items-center">
           <CallLayout layout={layout} />
         </div>
-        <div
-          className={cn("h-[calc(100vh-86px)] right-0 hidden ml-2", {
-            block: ShowParticipants,
-          })}
-        >
-          <CallParticipantsList onClose={() => setShowParticipants(false)} />
-        </div>
+
+        {ShowParticipants && (
+          <div className="h-full ml-4 bg-gray-800/40 p-4">
+            <CallParticipantsList onClose={() => setShowParticipants(false)} />
+          </div>
+        )}
       </div>
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
+
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap ">
         <CallControls onLeave={() => router.push("/")} />
         <DropdownMenu>
           <div className="flex items-center">
@@ -89,7 +95,7 @@ const MeetingRoom = () => {
           )}
         >
           <div className="cursor-pointer rounded-2xl  bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
-            <User size={20} className="text-white" />
+            <User size={20} className="text-white right-0" />
           </div>
         </button>
         {!isPersonalRoom && <EndCallButton />}

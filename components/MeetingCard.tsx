@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { avatarImages } from "@/constants";
@@ -16,7 +15,7 @@ interface MeetingCardProps {
   buttonText?: string;
   handleClick: () => void;
   link: string;
-}
+};
 
 const MeetingCard = ({
   icon,
@@ -29,7 +28,7 @@ const MeetingCard = ({
   buttonText,
 }: MeetingCardProps) => {
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-blue-800 px-5 py-8 xl:max-w-[568px]">
+    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-gray-800/80 px-5 py-8 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="upcoming" width={28} height={28} />
         <div className="flex justify-between">
@@ -39,7 +38,11 @@ const MeetingCard = ({
           </div>
         </div>
       </article>
-      <article className={cn("flex justify-center relative", {})}>
+      <article
+        className={
+          "flex sm:flex-col sm:gap-4 sm:mt-4 2xl:flex-row 2xl:mr-6 justify-center relative"
+        }
+      >
         <div className="relative flex w-full max-sm:hidden">
           {avatarImages.map((img, index) => (
             <Image
@@ -57,8 +60,8 @@ const MeetingCard = ({
           </div>
         </div>
         {!isPreviousMeeting && (
-          <div className="flex gap-2">
-            <Button onClick={handleClick} className="rounded bg-blue-900 px-6">
+          <div className="flex gap-2 mr-4 ">
+            <Button onClick={handleClick} className="rounded bg-blue-600 px-6">
               {buttonIcon1 && (
                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
               )}
@@ -69,7 +72,7 @@ const MeetingCard = ({
                 navigator.clipboard.writeText(link);
                 toast.success("Link Copied");
               }}
-              className="bg-dark-4 px-6"
+              className="bg-gray-800 px-4 "
             >
               <Image
                 src="/icons/copy.svg"

@@ -6,7 +6,7 @@ interface HomeCardProps {
   title: string;
   description: string;
   handleClick: () => void;
-}
+};
 
 const HomeCard = ({
   img,
