@@ -1,6 +1,5 @@
 "use client";
 import MeetingTypeList from "@/components/MeetingTypeList";
-import React from "react";
 
 const Home = () => {
   const now = new Date();

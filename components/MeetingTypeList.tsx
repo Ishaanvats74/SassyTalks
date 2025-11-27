@@ -45,8 +45,7 @@ const MeetingTypeList = () => {
         if (!values.description) {
           toast.error("Please add a description");
           return;
-        };
-        
+        }
       }
 
       await call.getOrCreate({
@@ -112,7 +111,7 @@ const MeetingTypeList = () => {
               Add a description
             </label>
             <Textarea
-              className="border-none focus-visible:ring-0 focus-visible:ring-offset-0 "
+              className="border-none bg-gray-800/40 focus-visible:ring-0 focus-visible:ring-offset-0 "
               onChange={(e) => {
                 setvalues({ ...values, description: e.target.value });
               }}
@@ -130,7 +129,7 @@ const MeetingTypeList = () => {
               timeIntervals={15}
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm aa"
-              className="w-full rounded bg-[#161925] p-2 focus:outline-none"
+              className="w-full rounded bg-gray-800/40 p-2 focus:outline-none"
             />
           </div>
         </MeetingModal>
@@ -163,9 +162,13 @@ const MeetingTypeList = () => {
         title="Type the link here"
         className="text-center"
         buttonText="Join Meeting"
-        handleClick={()=>router.push(values.link)}
+        handleClick={() => router.push(values.link)}
       >
-        <Input placeholder="Meeting Link" className="border-none bg-blue-950 focus-visible:ring-0 focus-visible:ring-offset-0" onChange={(e)=>setvalues({...values,link:e.target.value})}/>
+        <Input
+          placeholder="Meeting Link"
+          className="border-none bg-gray-800/40 focus-visible:ring-0 focus-visible:ring-offset-0"
+          onChange={(e) => setvalues({ ...values, link: e.target.value })}
+        />
       </MeetingModal>
     </section>
   );

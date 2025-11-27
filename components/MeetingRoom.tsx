@@ -39,10 +39,10 @@ const MeetingRoom = () => {
   const [layout, setlayout] = useState<CallLayoutType>("speaker-left");
   const [ShowParticipants, setShowParticipants] = useState<boolean>(false);
   const router = useRouter();
-  const {useCallCallingState} = useCallStateHooks();
+  const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
 
-  if(callingState !== CallingState.JOINED) return  <Loader />
+  if (callingState !== CallingState.JOINED) return <Loader />;
 
   return (
     <section className="text-white relative h-screen w-full overflow-hidden pt-4">
@@ -59,7 +59,7 @@ const MeetingRoom = () => {
         </div>
       </div>
       <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
-        <CallControls onLeave={()=>router.push('/')}/>
+        <CallControls onLeave={() => router.push("/")} />
         <DropdownMenu>
           <div className="flex items-center">
             <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
@@ -92,9 +92,7 @@ const MeetingRoom = () => {
             <User size={20} className="text-white" />
           </div>
         </button>
-        {!isPersonalRoom && (
-          <EndCallButton />
-        )}
+        {!isPersonalRoom && <EndCallButton />}
       </div>
     </section>
   );
