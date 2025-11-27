@@ -40,22 +40,27 @@ npm install
 yarn install
 ```
 
-### 3️⃣ Configure Environment Variables
+## ⚙️ Environment Variables  
 
-Create a **.env.local** file in the root folder and add:
+Create a **.env.local** file in the root folder and add the following values:
 
 ```bash
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key
-CLERK_SECRET_KEY=your_secret_key
+# Clerk Authentication (Required)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-# Stream Video API
-NEXT_PUBLIC_STREAM_API_KEY=your_stream_api_key
-STREAM_SECRET_KEY=your_stream_secret_key
-```
+# Clerk Redirect URLs
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IP_URL=/sign-up
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
 
-(Replace values with your actual API keys.)
+# Stream Video API (Required)
+NEXT_PUBLIC_STREAM_API_KEY=
+STREAM_SECRET_KEY=
 
+# Base URL
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ---
 
 ## ▶️ Run the Development Server
